@@ -1,0 +1,14 @@
+{
+  "name": "@hlolli/root-hash-calculator",
+  "version": "1.0.0-alpha1",
+  "description": "Arweave data-root file integrity calculator",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "node test/test.mjs"
+  },
+  "author": "Hlöðver Sigurðsson",
+  "license": "MIT",
+  "dependencies": {
+    "ramda": "^0.28.0"
+  }
+}
