@@ -6,6 +6,12 @@ const blob = fs.readFileSync(
   "test/JKEh_VBlcDtYm04PptoN_DSkdAdRLrbvvJBvHwAglnY"
 );
 
+console.log(
+  calculateDataRoot(blob),
+  "equals?",
+  "6pJfsmP7YBOD2wvwU8AMTZh-1s5Es2fdhcpzybc6SLI"
+);
+
 // https://arweave.net/tx/JKEh_VBlcDtYm04PptoN_DSkdAdRLrbvvJBvHwAglnY
 assert.deepEqual(
   calculateDataRoot(blob),

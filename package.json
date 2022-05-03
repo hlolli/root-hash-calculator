@@ -9,6 +9,7 @@
   "author": "Hlöðver Sigurðsson",
   "license": "MIT",
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "ramda": "^0.28.0"
   }
 }

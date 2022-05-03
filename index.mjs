@@ -1,4 +1,4 @@
-import crypto from "node:crypto";
+import CryptoJS from "crypto-js";
 import { addIndex, map, pipe, reduce, splitEvery } from "ramda";
 
 const mapIndexed = addIndex(map);
@@ -18,11 +18,13 @@ function intToBuffer(note) {
 }
 
 function hash(buffers) {
-  const hash_ = crypto.createHash("sha256");
+  const hash_ = CryptoJS.algo.SHA256.create();
   for (const buf of buffers) {
-    hash_.update(buf);
+    hash_.update(CryptoJS.lib.WordArray.create(buf));
   }
-  return new Uint8Array(Buffer.from(hash_.digest(), "hex"));
+  return new Uint8Array(
+    Buffer.from(hash_.finalize().toString(CryptoJS.enc.Hex), "hex")
+  );
 }
 
 function hashBranch(left, right) {
