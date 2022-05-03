@@ -4,7 +4,8 @@
   "description": "Arweave data-root file integrity calculator",
   "main": "index.mjs",
   "scripts": {
-    "test": "node test/test.mjs"
+    "test": "node test/test.mjs",
+    "dev:browser": "npx http-server ./browser -i -p 4500"
   },
   "author": "Hlöðver Sigurðsson",
   "license": "MIT",

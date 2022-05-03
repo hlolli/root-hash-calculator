@@ -60,10 +60,6 @@ function leave2Base64(leave) {
   return Buffer.from(leave.id).toString("base64url");
 }
 
-// function logRoot(leave) {
-//   process.stdout.write(Buffer.from(leave.id).toString("base64url"));
-// }
-
 function chunksFromBuffer(buffer) {
   return pipe(
     splitEvery(MAX_CHUNK_SIZE),
@@ -84,8 +80,18 @@ function chunksFromBuffer(buffer) {
 }
 
 function calculateDataRoot(bufferOrStream) {
-  if (bufferOrStream instanceof Buffer) {
-    return chunksFromBuffer(bufferOrStream);
+  if (typeof window !== "undefined") {
+    if (bufferOrStream instanceof Buffer) {
+      return chunksFromBuffer(bufferOrStream);
+    } else {
+      throw new Error("unexpected/unknown bufferOrStream");
+    }
+  } else {
+    if (bufferOrStream instanceof Uint8Array) {
+      return chunksFromBuffer(bufferOrStream);
+    } else {
+      throw new Error("unexpected/unknown bufferOrStream");
+    }
   }
 }
 
