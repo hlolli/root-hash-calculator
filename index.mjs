@@ -81,13 +81,13 @@ function chunksFromBuffer(buffer) {
 
 function calculateDataRoot(bufferOrStream) {
   if (typeof window !== "undefined") {
-    if (bufferOrStream instanceof Buffer) {
+    if (bufferOrStream instanceof Uint8Array) {
       return chunksFromBuffer(bufferOrStream);
     } else {
       throw new Error("unexpected/unknown bufferOrStream");
     }
   } else {
-    if (bufferOrStream instanceof Uint8Array) {
+    if (bufferOrStream instanceof Buffer) {
       return chunksFromBuffer(bufferOrStream);
     } else {
       throw new Error("unexpected/unknown bufferOrStream");
