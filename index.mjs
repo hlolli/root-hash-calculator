@@ -1,4 +1,5 @@
 import CryptoJS from "crypto-js";
+import Base64 from "crypto-js/enc-base64.js";
 import { addIndex, map, pipe, reduce, splitEvery } from "ramda";
 
 const mapIndexed = addIndex(map);
@@ -17,13 +18,16 @@ function intToBuffer(note) {
   return buffer;
 }
 
+const fromHexString = (hexString) =>
+  new Uint8Array(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+
 function hash(buffers) {
   const hash_ = CryptoJS.algo.SHA256.create();
   for (const buf of buffers) {
     hash_.update(CryptoJS.lib.WordArray.create(buf));
   }
   return new Uint8Array(
-    Buffer.from(hash_.finalize().toString(CryptoJS.enc.Hex), "hex")
+    fromHexString(hash_.finalize().toString(CryptoJS.enc.Hex), "hex")
   );
 }
 
@@ -57,7 +61,10 @@ function buildLayers(nodes, level = 0) {
 }
 
 function leave2Base64(leave) {
-  return Buffer.from(leave.id).toString("base64url");
+  return btoa(String.fromCharCode.apply(null, leave.id))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=/g, "");
 }
 
 function chunksFromBuffer(buffer) {
